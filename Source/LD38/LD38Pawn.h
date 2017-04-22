@@ -73,6 +73,9 @@ public:
 	UPROPERTY(EditAnywhere, Category = Checkpoint)
 	int32 NextCheckpoint;
 
+	UPROPERTY(EditAnywhere, Category = Checkpoint)
+	int32 LapsCompleted;
+
 	// Begin Actor interface
 	virtual void Tick(float Delta) override;
 protected:

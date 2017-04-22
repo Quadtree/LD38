@@ -38,6 +38,12 @@ void ACheckpoint::OnOverlap(AActor * OverlappedActor, AActor * OtherActor)
 		{
 			p->NextCheckpoint = 1 - p->NextCheckpoint;
 			UE_LOG(LogTemp, Display, TEXT("%s's next checkpoint is %s"), *OtherActor->GetName(), *FString::FromInt(p->NextCheckpoint));
+
+			if (this->CheckpointNumber == 0)
+			{
+				p->LapsCompleted++;
+				UE_LOG(LogTemp, Display, TEXT("%s has completed %s laps"), *OtherActor->GetName(), *FString::FromInt(p->LapsCompleted));
+			}
 		}
 	}
 }
