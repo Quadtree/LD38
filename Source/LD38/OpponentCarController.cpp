@@ -26,6 +26,7 @@ void AOpponentCarController::Tick(float Delta)
 				if (distSqr < bestDistSqr && i->CheckpointNumber == pawn->NextCheckpoint)
 				{
 					NextWaypoint = *i;
+					bestDistSqr = distSqr;
 				}
 			}
 
@@ -36,6 +37,7 @@ void AOpponentCarController::Tick(float Delta)
 				if (distSqr < bestDistSqr && i->NextCheckpointNumber == pawn->NextCheckpoint)
 				{
 					NextWaypoint = *i;
+					bestDistSqr = distSqr;
 				}
 			}
 
