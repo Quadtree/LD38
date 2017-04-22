@@ -17,4 +17,8 @@ class LD38_API AOpponentCarController : public AAIController
 	
 	UPROPERTY()
 	class AActor* NextWaypoint;
+
+	float StuckTime;
+
+	float ReverseTime;
 };

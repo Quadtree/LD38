@@ -15,7 +15,10 @@ void AOpponentCarController::Tick(float Delta)
 
 	if (pawn)
 	{
-		pawn->MoveForward(1);
+		if (ReverseTime <= 0)
+			pawn->MoveForward(1);
+		else
+			pawn->MoveForward(-1);
 
 		if (NextWaypoint == nullptr)
 		{
@@ -120,6 +123,23 @@ void AOpponentCarController::Tick(float Delta)
 
 		float forwardSpeed = pawn->GetActorRotation().GetInverse().RotateVector(Cast<UPrimitiveComponent>(pawn->GetRootComponent())->GetPhysicsLinearVelocity()).X;
 
-		DrawDebugString(pawn->GetWorld(), pawn->GetActorLocation(), FString::SanitizeFloat(forwardSpeed), nullptr, FColor::Red, Delta, true);
+		//DrawDebugString(pawn->GetWorld(), pawn->GetActorLocation(), FString::SanitizeFloat(forwardSpeed), nullptr, FColor::Red, Delta, true);
+
+		ReverseTime -= Delta;
+
+		if (forwardSpeed < 50 && ReverseTime <= 0)
+		{
+			StuckTime += Delta;
+		}
+		else
+		{
+			StuckTime = FMath::Max(0.f, StuckTime - Delta * 6);
+		}
+
+		if (StuckTime > 4)
+		{
+			StuckTime = 0;
+			ReverseTime = 8;
+		}
 	}
 }
