@@ -48,7 +48,7 @@ void AOpponentCarController::Tick(float Delta)
 			leftPoint.Z = 0;
 			rightPoint.Z = 0;
 
-			UE_LOG(LogTemp, Display, TEXT("NAV %s %s %s"), *frameRotator.ToCompactString(), *myLocation.ToCompactString(), *destLocation.ToCompactString());
+			//UE_LOG(LogTemp, Display, TEXT("NAV %s %s %s"), *frameRotator.ToCompactString(), *myLocation.ToCompactString(), *destLocation.ToCompactString());
 
 			float centerDist = FVector::DistSquared(centerPoint, destLocation);
 			float leftDist = FVector::DistSquared(leftPoint, destLocation);
@@ -62,6 +62,11 @@ void AOpponentCarController::Tick(float Delta)
 			if (rightDist < centerDist && rightDist < leftDist)
 			{
 				pawn->MoveRight(1);
+			}
+
+			if (auto chk = Cast<ACheckpoint>(NextWaypoint))
+			{
+				if (chk->CheckpointNumber != pawn->NextCheckpoint) NextWaypoint = nullptr;
 			}
 		}
 	}
