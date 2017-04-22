@@ -226,6 +226,16 @@ void ALD38Pawn::Tick(float Delta)
 		if (NextCheckpoint >= gameMode->Laps)
 		{
 			RaceOver = true;
+
+			if (FinalPlace == 0)
+			{
+				for (TActorIterator<ALD38Pawn> i(GetWorld()); i; ++i)
+				{
+					if (*i == this) continue;
+
+					FinalPlace = FMath::Min(i->FinalPlace - 1, FinalPlace);
+				}
+			}
 		}
 	}
 

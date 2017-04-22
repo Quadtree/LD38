@@ -109,6 +109,9 @@ public:
 
 	bool RaceOver;
 
+	UPROPERTY(Category = Place, BlueprintReadOnly, VisibleAnywhere)
+	int32 FinalPlace;
+
 private:
 	/** 
 	 * Activate In-Car camera. Enable camera and sets visibility of incar hud display
