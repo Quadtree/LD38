@@ -8,3 +8,20 @@ Car Types
 * Powerful engine
 * Rocket booster
 * Rocket jump
+
+Level Ideas
+===========
+* Blank drag race
+* Forest planet
+* Dark planet with ravines to drive through
+* Glass planet with holes
+
+
+Task List
+=========
+* Waypoints
+* Winning and losing
+* Better AI
+* Main menu
+* Sound
+* Music
