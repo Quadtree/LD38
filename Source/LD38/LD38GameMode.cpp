@@ -34,10 +34,13 @@ void ALD38GameMode::BeginPlay()
 
 			if (auto inst = Cast<ULD38GameInstance>(GetWorld()->GetGameInstance()))
 			{
-				GetWorld()->SpawnActor<ALD38Pawn>(inst->CarTypes[FMath::RandRange(0, inst->CarTypes.Num() - 1)], startPos, start->GetActorRotation());
-			}
+				auto atr = GetWorld()->SpawnActor<ALD38Pawn>(inst->CarTypes[FMath::RandRange(0, inst->CarTypes.Num() - 1)], startPos, start->GetActorRotation());
 
-			
+				if (atr)
+				{
+					atr->SpawnDefaultController();
+				}
+			}
 		}
 	}
 }
