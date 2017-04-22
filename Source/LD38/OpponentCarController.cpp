@@ -22,10 +22,7 @@ void AOpponentCarController::Tick(float Delta)
 			pc->SetAngularDamping(2);
 		}*/
 
-		if (ReverseTime <= 0)
-			if (forwardSpeed < 700) pawn->MoveForward(1);
-		else
-			pawn->MoveForward(-1);
+		pawn->MoveForward(0);
 
 		if (NextWaypoint == nullptr)
 		{
@@ -84,7 +81,26 @@ void AOpponentCarController::Tick(float Delta)
 
 			float angleToDest = FVector::DotProduct(destUnitVector, facingUnitVector);
 
+			//float topSpeed = 300;
+
+			//if (FMath::Abs(angleToDest) < 0.06f) topSpeed = 2000;
+
+			float topSpeed = FMath::Max(300.f, 2000.f - FMath::Abs(angleToDest) * 4000.f);
+
+			topSpeed = FMath::Min(FVector::Dist(NextWaypoint->GetActorLocation(), pawn->GetActorLocation()), topSpeed);
+
+			if (ReverseTime <= 0)
+			{
+				if (forwardSpeed < topSpeed) pawn->MoveForward(1);
+			}
+			else
+			{
+				pawn->MoveForward(-1);
+			}
+
 			DrawDebugString(pawn->GetWorld(), pawn->GetActorLocation(), FString::SanitizeFloat(angleToDest), nullptr, FColor::Red, Delta, true);
+			DrawDebugString(pawn->GetWorld(), pawn->GetActorLocation() + FVector(0,0,200), FString::SanitizeFloat(StuckTime), nullptr, FColor::Red, Delta, true);
+			DrawDebugString(pawn->GetWorld(), pawn->GetActorLocation() + FVector(0, 0, 400), FString::SanitizeFloat(topSpeed), nullptr, FColor::Red, Delta, true);
 
 			//UE_LOG(LogTemp, Display, TEXT("NAV %s %s %s"), *frameRotator.ToCompactString(), *myLocation.ToCompactString(), *destLocation.ToCompactString());
 
@@ -104,14 +120,14 @@ void AOpponentCarController::Tick(float Delta)
 
 			pawn->MoveRight(0);
 
-			if (leftDist < centerDist && leftDist < rightDist && rotationSpeed > -30)
+			if (angleToDest < -0.03f && rotationSpeed > -30)
 			{
-				pawn->MoveRight(-1);
+				pawn->MoveRight(angleToDest * 2);
 			}
 
-			if (rightDist < centerDist && rightDist < leftDist && rotationSpeed < 30)
+			if (angleToDest > 0.03f && rotationSpeed < 30)
 			{
-				pawn->MoveRight(1);
+				pawn->MoveRight(angleToDest * 2);
 			}
 
 			if (auto chk = Cast<ACheckpoint>(NextWaypoint))

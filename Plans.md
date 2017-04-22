@@ -20,9 +20,13 @@ Level Ideas
 Task List
 =========
 * ~~Waypoints~~
+* Finish waypoints on dark planet
 * Winning and losing
 * Better AI
 * Create new levels
 * Main menu
 * Sound
 * Music
+
+POSITIVE means turn RIGHT
+NEGATIVE means turn LEFT
