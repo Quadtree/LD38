@@ -19,7 +19,7 @@ Level Ideas
 
 Task List
 =========
-* Waypoints
+* ~~Waypoints~~
 * Winning and losing
 * Better AI
 * Create new levels

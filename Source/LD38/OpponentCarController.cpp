@@ -6,6 +6,8 @@
 #include "EngineUtils.h"
 #include "Checkpoint.h"
 #include "Waypoint.h"
+#include "Components/PrimitiveComponent.h"
+#include "DrawDebugHelpers.h"
 
 void AOpponentCarController::Tick(float Delta)
 {
@@ -115,5 +117,9 @@ void AOpponentCarController::Tick(float Delta)
 				}
 			}
 		}
+
+		float forwardSpeed = pawn->GetActorRotation().GetInverse().RotateVector(Cast<UPrimitiveComponent>(pawn->GetRootComponent())->GetPhysicsLinearVelocity()).X;
+
+		DrawDebugString(pawn->GetWorld(), pawn->GetActorLocation(), FString::SanitizeFloat(forwardSpeed), nullptr, FColor::Red, Delta, true);
 	}
 }
