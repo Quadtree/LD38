@@ -70,6 +70,9 @@ public:
 	virtual void SetupPlayerInputComponent(UInputComponent* InputComponent) override;
 	// End Pawn interface
 
+	UPROPERTY(EditAnywhere, Category = Checkpoint)
+	int32 NextCheckpoint;
+
 	// Begin Actor interface
 	virtual void Tick(float Delta) override;
 protected:

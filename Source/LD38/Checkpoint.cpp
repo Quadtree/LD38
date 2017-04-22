@@ -2,6 +2,7 @@
 
 #include "LD38.h"
 #include "Checkpoint.h"
+#include "LD38Pawn.h"
 
 
 // Sets default values
@@ -17,6 +18,7 @@ void ACheckpoint::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	OnActorBeginOverlap.AddDynamic(this, &ACheckpoint::OnOverlap);
 }
 
 // Called every frame
@@ -24,5 +26,19 @@ void ACheckpoint::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+}
+
+void ACheckpoint::OnOverlap(AActor * OverlappedActor, AActor * OtherActor)
+{
+	if (OtherActor) { UE_LOG(LogTemp, Display, TEXT("Overlapping %s"), *OtherActor->GetName()); }
+
+	if (auto p = Cast<ALD38Pawn>(OtherActor))
+	{
+		if (this->CheckpointNumber == p->NextCheckpoint)
+		{
+			p->NextCheckpoint = 1 - p->NextCheckpoint;
+			UE_LOG(LogTemp, Display, TEXT("%s's next checkpoint is %s"), *OtherActor->GetName(), *FString::FromInt(p->NextCheckpoint));
+		}
+	}
 }
 
