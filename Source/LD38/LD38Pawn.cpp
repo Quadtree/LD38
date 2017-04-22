@@ -12,6 +12,7 @@
 #include "WheeledVehicleMovementComponent4W.h"
 #include "Engine/SkeletalMesh.h"
 #include "Engine.h"
+#include "LD38GameMode.h"
 
 // Needed for VR Headset
 #if HMD_MODULE_INCLUDED
@@ -218,8 +219,21 @@ void ALD38Pawn::Tick(float Delta)
 
 	//GetMesh()->AddImpulse(FVector(0, 0, -980 * Delta), NAME_None, true);
 	GetMesh()->AddForce(FVector(0, 0, 980), NAME_None, true);
-
 	GetMesh()->AddForce(GetMesh()->GetComponentLocation().GetSafeNormal() * -980, NAME_None, true);
+
+	if (auto gameMode = Cast<ALD38GameMode>(GetWorld()->GetAuthGameMode()))
+	{
+		if (NextCheckpoint >= gameMode->Laps)
+		{
+			RaceOver = true;
+		}
+	}
+
+	if (RaceOver)
+	{
+		MoveForward(0);
+		MoveRight(0);
+	}
 }
 
 void ALD38Pawn::BeginPlay()
