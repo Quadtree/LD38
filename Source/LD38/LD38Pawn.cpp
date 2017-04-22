@@ -223,7 +223,7 @@ void ALD38Pawn::Tick(float Delta)
 
 	if (auto gameMode = Cast<ALD38GameMode>(GetWorld()->GetAuthGameMode()))
 	{
-		if (NextCheckpoint >= gameMode->Laps)
+		if (LapsCompleted >= gameMode->Laps)
 		{
 			RaceOver = true;
 
@@ -233,7 +233,7 @@ void ALD38Pawn::Tick(float Delta)
 				{
 					if (*i == this) continue;
 
-					FinalPlace = FMath::Min(i->FinalPlace - 1, FinalPlace);
+					FinalPlace = FMath::Max(i->FinalPlace + 1, FinalPlace);
 				}
 			}
 		}
