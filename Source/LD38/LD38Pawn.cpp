@@ -245,6 +245,10 @@ void ALD38Pawn::OnResetVR()
 #endif // HMD_MODULE_INCLUDED
 }
 
+void ALD38Pawn::ReachedCheckpoint(int32 checkpoint)
+{
+}
+
 void ALD38Pawn::UpdateHUDStrings()
 {
 	float KPH = FMath::Abs(GetVehicleMovement()->GetForwardSpeed()) * 0.036f;

@@ -10,6 +10,9 @@ class ALD38GameMode : public AGameModeBase
 
 public:
 	ALD38GameMode();
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Laps)
+	int32 Laps;
 };
 
 

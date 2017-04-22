@@ -44,6 +44,8 @@ void ACheckpoint::OnOverlap(AActor * OverlappedActor, AActor * OtherActor)
 				p->LapsCompleted++;
 				UE_LOG(LogTemp, Display, TEXT("%s has completed %s laps"), *OtherActor->GetName(), *FString::FromInt(p->LapsCompleted));
 			}
+
+			p->ReachedCheckpoint(this->CheckpointNumber);
 		}
 	}
 }

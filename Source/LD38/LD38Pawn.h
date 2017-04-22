@@ -70,10 +70,10 @@ public:
 	virtual void SetupPlayerInputComponent(UInputComponent* InputComponent) override;
 	// End Pawn interface
 
-	UPROPERTY(EditAnywhere, Category = Checkpoint)
+	UPROPERTY(EditAnywhere, Category = Checkpoint, BlueprintReadOnly)
 	int32 NextCheckpoint;
 
-	UPROPERTY(EditAnywhere, Category = Checkpoint)
+	UPROPERTY(EditAnywhere, Category = Checkpoint, BlueprintReadOnly)
 	int32 LapsCompleted;
 
 	// Begin Actor interface
@@ -101,6 +101,8 @@ public:
 	void OnToggleCamera();
 	/** Handle reset VR device */
 	void OnResetVR();
+
+	void ReachedCheckpoint(int32 checkpoint);
 
 	static const FName LookUpBinding;
 	static const FName LookRightBinding;
