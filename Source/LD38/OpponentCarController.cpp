@@ -15,8 +15,15 @@ void AOpponentCarController::Tick(float Delta)
 
 	if (pawn)
 	{
+		float forwardSpeed = pawn->GetActorRotation().GetInverse().RotateVector(Cast<UPrimitiveComponent>(pawn->GetRootComponent())->GetPhysicsLinearVelocity()).X;
+
+		/*if (auto pc = Cast<UPrimitiveComponent>(pawn->GetRootComponent()))
+		{
+			pc->SetAngularDamping(2);
+		}*/
+
 		if (ReverseTime <= 0)
-			pawn->MoveForward(1);
+			if (forwardSpeed < 700) pawn->MoveForward(1);
 		else
 			pawn->MoveForward(-1);
 
@@ -54,6 +61,9 @@ void AOpponentCarController::Tick(float Delta)
 		
 		if (NextWaypoint)
 		{
+			DrawDebugLine(GetWorld(), pawn->GetActorLocation() + FVector(0,0,200), NextWaypoint->GetActorLocation() + FVector(0, 0, 200), FColor::Red, false, Delta * 3, 0, 3);
+			DrawDebugSphere(GetWorld(), NextWaypoint->GetActorLocation(), 100, 3, FColor::Red, false, Delta * 3, 0, 3);
+
 			FRotator frameRotator = (pawn->GetActorLocation().Rotation() + FRotator(90, 0, 0)).GetInverse();
 
 			FVector myLocation = frameRotator.RotateVector(pawn->GetActorLocation());
@@ -75,12 +85,24 @@ void AOpponentCarController::Tick(float Delta)
 			float leftDist = FVector::DistSquared(leftPoint, destLocation);
 			float rightDist = FVector::DistSquared(rightPoint, destLocation);
 
-			if (leftDist < centerDist && leftDist < rightDist)
+			float rotationSpeed = 0;
+
+			if (auto pc = Cast<UPrimitiveComponent>(pawn->GetRootComponent()))
+			{
+				FVector rot = pc->GetComponentRotation().GetInverse().RotateVector(pc->GetPhysicsAngularVelocity());
+				rotationSpeed = rot.Z;
+
+				DrawDebugString(pawn->GetWorld(), pawn->GetActorLocation(), rot.ToString(), nullptr, FColor::Red, Delta, true);
+			}
+
+			pawn->MoveRight(0);
+
+			if (leftDist < centerDist && leftDist < rightDist && rotationSpeed > -30)
 			{
 				pawn->MoveRight(-1);
 			}
 
-			if (rightDist < centerDist && rightDist < leftDist)
+			if (rightDist < centerDist && rightDist < leftDist && rotationSpeed < 30)
 			{
 				pawn->MoveRight(1);
 			}
@@ -121,7 +143,7 @@ void AOpponentCarController::Tick(float Delta)
 			}
 		}
 
-		float forwardSpeed = pawn->GetActorRotation().GetInverse().RotateVector(Cast<UPrimitiveComponent>(pawn->GetRootComponent())->GetPhysicsLinearVelocity()).X;
+		
 
 		//DrawDebugString(pawn->GetWorld(), pawn->GetActorLocation(), FString::SanitizeFloat(forwardSpeed), nullptr, FColor::Red, Delta, true);
 
