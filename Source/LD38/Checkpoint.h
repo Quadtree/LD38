@@ -14,7 +14,7 @@ public:
 	// Sets default values for this actor's properties
 	ACheckpoint();
 
-	UPROPERTY(EditAnywhere, Category = Checkpoint)
+	UPROPERTY(EditAnywhere, Category = Checkpoint, BlueprintReadOnly)
 	int32 CheckpointNumber;
 
 protected:
