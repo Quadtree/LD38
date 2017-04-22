@@ -36,15 +36,33 @@ void AOpponentCarController::Tick(float Delta)
 			FRotator frameRotator = (pawn->GetActorLocation().Rotation() + FRotator(90, 0, 0)).GetInverse();
 
 			FVector myLocation = frameRotator.RotateVector(pawn->GetActorLocation());
+			FVector centerPoint = frameRotator.RotateVector(pawn->GetActorLocation() + pawn->GetActorRotation().RotateVector(FVector(300, 0, 0)));
+			FVector leftPoint = frameRotator.RotateVector(pawn->GetActorLocation() + pawn->GetActorRotation().RotateVector(FVector(300, -100, 0)));
+			FVector rightPoint = frameRotator.RotateVector(pawn->GetActorLocation() + pawn->GetActorRotation().RotateVector(FVector(300, 100, 0)));
 			
 			FVector destLocation = frameRotator.RotateVector(NextWaypoint->GetActorLocation());
 
 			myLocation.Z = 0;
 			destLocation.Z = 0;
+			centerPoint.Z = 0;
+			leftPoint.Z = 0;
+			rightPoint.Z = 0;
 
 			UE_LOG(LogTemp, Display, TEXT("NAV %s %s %s"), *frameRotator.ToCompactString(), *myLocation.ToCompactString(), *destLocation.ToCompactString());
 
-			
+			float centerDist = FVector::DistSquared(centerPoint, destLocation);
+			float leftDist = FVector::DistSquared(leftPoint, destLocation);
+			float rightDist = FVector::DistSquared(rightPoint, destLocation);
+
+			if (leftDist < centerDist && leftDist < rightDist)
+			{
+				pawn->MoveRight(-1);
+			}
+
+			if (rightDist < centerDist && rightDist < leftDist)
+			{
+				pawn->MoveRight(1);
+			}
 		}
 	}
 }
