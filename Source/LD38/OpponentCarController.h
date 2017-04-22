@@ -15,5 +15,6 @@ class LD38_API AOpponentCarController : public AAIController
 
 	virtual void Tick(float Delta);
 	
-	
+	UPROPERTY()
+	class AActor* NextWaypoint;
 };
