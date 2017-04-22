@@ -61,8 +61,8 @@ ALD38Pawn::ALD38Pawn()
 	SpringArm->TargetArmLength = 600.0f;
 	SpringArm->bEnableCameraRotationLag = true;
 	SpringArm->CameraRotationLagSpeed = 7.f;
-	SpringArm->bInheritPitch = false;
-	SpringArm->bInheritRoll = false;
+	//SpringArm->bInheritPitch = false;
+	//SpringArm->bInheritRoll = false;
 
 	// Create camera component 
 	Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera0"));
@@ -212,6 +212,11 @@ void ALD38Pawn::Tick(float Delta)
 			InternalCamera->RelativeRotation = HeadRotation;
 		}
 	}
+
+	//GetMesh()->AddImpulse(FVector(0, 0, -980 * Delta), NAME_None, true);
+	GetMesh()->AddForce(FVector(0, 0, 980), NAME_None, true);
+
+	GetMesh()->AddForce(GetMesh()->GetComponentLocation().GetSafeNormal() * -980, NAME_None, true);
 }
 
 void ALD38Pawn::BeginPlay()
