@@ -26,8 +26,8 @@ Task List
 * ~~Waypoints~~
 * ~~Finish waypoints on dark planet~~
 * ~~Display next checkpoint on HUD~~
-* Winning and losing
-* Better AI
+* ~~Winning and losing~~
+* ~~Better AI~~
 * Create car #1
 * Create new levels
 * Create car #2
