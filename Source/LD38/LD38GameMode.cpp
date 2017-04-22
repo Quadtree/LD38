@@ -26,7 +26,7 @@ void ALD38GameMode::BeginPlay()
 
 	if (start)
 	{
-		for (int i = -1; i <= 2; ++i)
+		for (int i = -1; i <= 0; ++i)
 		{
 			if (i == 0) continue;
 
