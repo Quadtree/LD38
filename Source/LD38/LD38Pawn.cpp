@@ -244,6 +244,10 @@ void ALD38Pawn::Tick(float Delta)
 		MoveForward(0);
 		MoveRight(0);
 	}
+	else
+	{
+		RaceDuration += Delta;
+	}
 }
 
 void ALD38Pawn::BeginPlay()

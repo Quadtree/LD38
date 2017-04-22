@@ -112,6 +112,9 @@ public:
 	UPROPERTY(Category = Place, BlueprintReadOnly, VisibleAnywhere)
 	int32 FinalPlace;
 
+	UPROPERTY(Category = Place, BlueprintReadOnly, VisibleAnywhere)
+	float RaceDuration;
+
 private:
 	/** 
 	 * Activate In-Car camera. Enable camera and sets visibility of incar hud display
