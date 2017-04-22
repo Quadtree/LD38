@@ -13,6 +13,8 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Laps)
 	int32 Laps;
+
+	virtual void BeginPlay();
 };
 
 
