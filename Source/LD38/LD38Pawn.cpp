@@ -61,8 +61,9 @@ ALD38Pawn::ALD38Pawn()
 	SpringArm->TargetArmLength = 600.0f;
 	SpringArm->bEnableCameraRotationLag = true;
 	SpringArm->CameraRotationLagSpeed = 7.f;
-	//SpringArm->bInheritPitch = false;
-	//SpringArm->bInheritRoll = false;
+	SpringArm->bInheritPitch = true;
+	SpringArm->bInheritRoll = true;
+	SpringArm->bInheritYaw = true;
 
 	// Create camera component 
 	Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera0"));
