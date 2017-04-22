@@ -79,6 +79,13 @@ void AOpponentCarController::Tick(float Delta)
 			leftPoint.Z = 0;
 			rightPoint.Z = 0;
 
+			FVector destUnitVector = (destLocation - myLocation).GetSafeNormal();
+			FVector facingUnitVector = frameRotator.RotateVector(pawn->GetActorRotation().RotateVector(FVector(0, 1, 0)));
+
+			float angleToDest = FVector::DotProduct(destUnitVector, facingUnitVector);
+
+			DrawDebugString(pawn->GetWorld(), pawn->GetActorLocation(), FString::SanitizeFloat(angleToDest), nullptr, FColor::Red, Delta, true);
+
 			//UE_LOG(LogTemp, Display, TEXT("NAV %s %s %s"), *frameRotator.ToCompactString(), *myLocation.ToCompactString(), *destLocation.ToCompactString());
 
 			float centerDist = FVector::DistSquared(centerPoint, destLocation);
@@ -92,7 +99,7 @@ void AOpponentCarController::Tick(float Delta)
 				FVector rot = pc->GetComponentRotation().GetInverse().RotateVector(pc->GetPhysicsAngularVelocity());
 				rotationSpeed = rot.Z;
 
-				DrawDebugString(pawn->GetWorld(), pawn->GetActorLocation(), rot.ToString(), nullptr, FColor::Red, Delta, true);
+				//DrawDebugString(pawn->GetWorld(), pawn->GetActorLocation(), rot.ToString(), nullptr, FColor::Red, Delta, true);
 			}
 
 			pawn->MoveRight(0);
