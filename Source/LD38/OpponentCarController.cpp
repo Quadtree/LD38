@@ -5,6 +5,7 @@
 #include "LD38Pawn.h"
 #include "EngineUtils.h"
 #include "Checkpoint.h"
+#include "Waypoint.h"
 
 void AOpponentCarController::Tick(float Delta)
 {
@@ -16,12 +17,25 @@ void AOpponentCarController::Tick(float Delta)
 
 		if (NextWaypoint == nullptr)
 		{
+			float bestDistSqr = TNumericLimits<float>::Max();
+
 			for (TActorIterator<ACheckpoint> i(GetWorld()); i; ++i)
 			{
-				if (i->CheckpointNumber == pawn->NextCheckpoint)
+				float distSqr = FVector::DistSquared(i->GetActorLocation(), pawn->GetActorLocation());
+
+				if (distSqr < bestDistSqr && i->CheckpointNumber == pawn->NextCheckpoint)
 				{
 					NextWaypoint = *i;
-					break;
+				}
+			}
+
+			for (TActorIterator<AWaypoint> i(GetWorld()); i; ++i)
+			{
+				float distSqr = FVector::DistSquared(i->GetActorLocation(), pawn->GetActorLocation());
+
+				if (distSqr < bestDistSqr && i->NextCheckpointNumber == pawn->NextCheckpoint)
+				{
+					NextWaypoint = *i;
 				}
 			}
 
@@ -67,6 +81,36 @@ void AOpponentCarController::Tick(float Delta)
 			if (auto chk = Cast<ACheckpoint>(NextWaypoint))
 			{
 				if (chk->CheckpointNumber != pawn->NextCheckpoint) NextWaypoint = nullptr;
+			}
+
+			if (auto wpt = Cast<AWaypoint>(NextWaypoint))
+			{
+				if (FVector::DistSquared(wpt->GetActorLocation(), pawn->GetActorLocation()) < FMath::Square(800))
+				{
+					int32 targetNextWaypoint = wpt->WaypointNumber + 1;
+					NextWaypoint = nullptr;
+
+					for (TActorIterator<AWaypoint> i(GetWorld()); i; ++i)
+					{
+						float distSqr = FVector::DistSquared(i->GetActorLocation(), pawn->GetActorLocation());
+
+						if (i->NextCheckpointNumber == pawn->NextCheckpoint && i->WaypointNumber == targetNextWaypoint)
+						{
+							NextWaypoint = *i;
+						}
+					}
+
+					if (!NextWaypoint)
+					{
+						for (TActorIterator<ACheckpoint> i(GetWorld()); i; ++i)
+						{
+							if (i->CheckpointNumber == pawn->NextCheckpoint)
+							{
+								NextWaypoint = *i;
+							}
+						}
+					}
+				}
 			}
 		}
 	}

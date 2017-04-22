@@ -22,6 +22,7 @@ Task List
 * Waypoints
 * Winning and losing
 * Better AI
+* Create new levels
 * Main menu
 * Sound
 * Music
