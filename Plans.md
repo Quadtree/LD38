@@ -29,7 +29,7 @@ Task List
 * ~~Winning and losing~~
 * ~~Better AI~~
 * ~~Create car #1~~
-* Create car #2
+* ~~Create car #2~~
 * Create car #3
 * Create forest planet
 * Create glass planet

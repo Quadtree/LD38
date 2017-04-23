@@ -262,6 +262,22 @@ void ALD38Pawn::Tick(float Delta)
 	GetMesh()->AddForce(GetActorRotation().RotateVector(FVector(0, 0, 1) * Jumping * JumpPower), NAME_None, true);
 	GetMesh()->AddForce(GetActorRotation().RotateVector(FVector(1, 0, 0) * Throttle * ThrustPower), NAME_None, true);
 
+	bool showThrusters = false;
+
+	if (Jumping * JumpPower > 0.01f || Throttle * ThrustPower > 0.01f) showThrusters = true;
+
+	for (auto a : GetComponentsByClass(UParticleSystemComponent::StaticClass()))
+	{
+		if (a->ComponentHasTag("Thruster"))
+		{
+			auto psc = Cast<UParticleSystemComponent>(a);
+
+			if (psc)
+			{
+				psc->bSuppressSpawning = !showThrusters;
+			}
+		}
+	}
 }
 
 void ALD38Pawn::BeginPlay()
