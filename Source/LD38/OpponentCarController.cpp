@@ -98,12 +98,15 @@ void AOpponentCarController::Tick(float Delta)
 
 			topSpeed = FMath::Min(FVector::Dist(NextWaypoint->GetActorLocation(), pawn->GetActorLocation()), topSpeed);
 
+			pawn->Jumping = 0;
+
 			if (ReverseTime <= 0)
 			{
 				if (forwardSpeed < topSpeed) pawn->MoveForward(1);
 			}
 			else
 			{
+				pawn->Jumping = 1;
 				pawn->MoveForward(-1);
 			}
 

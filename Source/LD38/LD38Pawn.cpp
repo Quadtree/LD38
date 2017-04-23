@@ -175,6 +175,8 @@ void ALD38Pawn::OnToggleCamera()
 
 void ALD38Pawn::ResetToLastCheckpoint()
 {
+	if (RaceOver) return;
+
 	AActor* targetCheckpoint = nullptr;
 
 	for (TActorIterator<ACheckpoint> i(GetWorld()); i; ++i)
@@ -320,6 +322,7 @@ void ALD38Pawn::Tick(float Delta)
 	{
 		MoveForward(0);
 		MoveRight(0);
+		Jumping = false;
 	}
 	else
 	{
