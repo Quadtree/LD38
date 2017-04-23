@@ -18,6 +18,7 @@
 #include "IHttpRequest.h"
 #include "IHttpResponse.h"
 #include "GenericPlatform/GenericPlatformHttp.h"
+#include "DefaultValueHelper.h"
 
 // Needed for VR Headset
 #if HMD_MODULE_INCLUDED
@@ -191,6 +192,26 @@ void ALD38Pawn::ResetToLastCheckpoint()
 	}
 }
 
+void ALD38Pawn::OnHighScoreResponse(FHttpRequestPtr req, FHttpResponsePtr resp, bool success)
+{
+	FString content = resp->GetContentAsString();
+
+	TArray<FString> lines;
+
+	content.ParseIntoArray(lines, TEXT("\n"));
+
+	for (auto line : lines)
+	{
+		TArray<FString> parts;
+		line.ParseIntoArray(parts, TEXT("\t"));
+
+		CarNames.Add(parts[0]);
+		Times.Add(FCString::Atoi(*parts[1]) / 1000.f);
+	}
+
+	UE_LOG(LogTemp, Display, TEXT("Got high scores"));
+}
+
 void ALD38Pawn::EnableIncarView(const bool bState, const bool bForce)
 {
 	if ((bState != bInCarCameraActive) || ( bForce == true ))
@@ -274,6 +295,9 @@ void ALD38Pawn::Tick(float Delta)
 
 				req->SetVerb("GET");
 				req->SetURL("http://sigma/dyn/lighttpd/ld/ld38/hst.php?insert=1&map=" + FGenericPlatformHttp::UrlEncode(UGameplayStatics::GetCurrentLevelName(GetWorld())) + "&car=" + FString::FromInt(CarId) + "&time1=" + FString::FromInt(duraInMilis));
+
+				req->OnProcessRequestComplete().BindUObject(this, &ALD38Pawn::OnHighScoreResponse);
+
 				req->ProcessRequest();
 			}
 		}

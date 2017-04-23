@@ -1,6 +1,8 @@
 // Copyright 1998-2017 Epic Games, Inc. All Rights Reserved.
 #pragma once
 #include "WheeledVehicle.h"
+#include "IHttpRequest.h"
+#include "IHttpResponse.h"
 #include "LD38Pawn.generated.h"
 
 class UCameraComponent;
@@ -134,8 +136,16 @@ public:
 	UPROPERTY()
 	float Throttle;
 
+	UPROPERTY(Category = HighScores, BlueprintReadOnly)
+	TArray<FString> CarNames;
+
+	UPROPERTY(Category = HighScores, BlueprintReadOnly)
+	TArray<float> Times;
+
 	UFUNCTION(BlueprintCallable, Category = Reset)
 	void ResetToLastCheckpoint();
+
+	void OnHighScoreResponse(FHttpRequestPtr req, FHttpResponsePtr resp, bool success);
 
 private:
 	/** 
