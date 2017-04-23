@@ -134,12 +134,15 @@ void ALD38Pawn::SetupPlayerInputComponent(class UInputComponent* PlayerInputComp
 	PlayerInputComponent->BindAction("Handbrake", IE_Released, this, &ALD38Pawn::OnHandbrakeReleased);
 	PlayerInputComponent->BindAction("SwitchCamera", IE_Pressed, this, &ALD38Pawn::OnToggleCamera);
 
+	PlayerInputComponent->BindAxis("Jump", this, &ALD38Pawn::OnJump);
+
 	PlayerInputComponent->BindAction("ResetVR", IE_Pressed, this, &ALD38Pawn::OnResetVR); 
 }
 
 void ALD38Pawn::MoveForward(float Val)
 {
 	GetVehicleMovementComponent()->SetThrottleInput(Val);
+	Throttle = Val;
 }
 
 void ALD38Pawn::MoveRight(float Val)
@@ -252,10 +255,13 @@ void ALD38Pawn::Tick(float Delta)
 	float velocity = 0;
 
 	if (auto pc = Cast<UPrimitiveComponent>(RootComponent)) velocity = pc->GetPhysicsLinearVelocity().Size();
-
-	FVector downForce = FVector(0, 0, -1) * velocity * SpoilerPower;
+	FVector downForce = GetActorRotation().RotateVector(FVector(0, 0, -1) * velocity * SpoilerPower);
 
 	GetMesh()->AddForce(downForce, NAME_None, true);
+
+	GetMesh()->AddForce(GetActorRotation().RotateVector(FVector(0, 0, 1) * Jumping * JumpPower), NAME_None, true);
+	GetMesh()->AddForce(GetActorRotation().RotateVector(FVector(1, 0, 0) * Throttle * ThrustPower), NAME_None, true);
+
 }
 
 void ALD38Pawn::BeginPlay()
@@ -302,6 +308,11 @@ void ALD38Pawn::UpdateHUDStrings()
 		int32 Gear = GetVehicleMovement()->GetCurrentGear();
 		GearDisplayString = (Gear == 0) ? LOCTEXT("N", "N") : FText::AsNumber(Gear);
 	}	
+}
+
+void ALD38Pawn::OnJump(float amt)
+{
+	Jumping = amt;
 }
 
 void ALD38Pawn::SetupInCarHUD()

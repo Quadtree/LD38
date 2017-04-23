@@ -118,6 +118,18 @@ public:
 	UPROPERTY(Category = Place, EditAnywhere)
 	float SpoilerPower;
 
+	UPROPERTY(Category = Place, EditAnywhere)
+	float JumpPower;
+
+	UPROPERTY(Category = Place, EditAnywhere)
+	float ThrustPower;
+
+	UPROPERTY()
+	float Jumping;
+
+	UPROPERTY()
+	float Throttle;
+
 private:
 	/** 
 	 * Activate In-Car camera. Enable camera and sets visibility of incar hud display
@@ -145,4 +157,6 @@ public:
 	FORCEINLINE UTextRenderComponent* GetInCarSpeed() const { return InCarSpeed; }
 	/** Returns InCarGear subobject **/
 	FORCEINLINE UTextRenderComponent* GetInCarGear() const { return InCarGear; }
+
+	void OnJump(float amt);
 };
