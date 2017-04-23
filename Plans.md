@@ -43,7 +43,7 @@ Task List
 * ~~Main menu~~
 * ~~Reset on stuck or death~~
 * ~~High score system~~
-* Add in suns
+* ~~Add in suns~~
 * Stuck for AIs when they fall off ledges
 * Sound
 * Give AI the ability to drive other cars
