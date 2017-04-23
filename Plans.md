@@ -36,7 +36,7 @@ Task List
 * ~~Create glass planet~~
 * ~~Extemely small planet~~
 * ~~Final graphics for planets~~
-* Improve top-down view
+* ~~Improve top-down view~~
 * Main menu
 * Reset on stuck or death
 * High score system
