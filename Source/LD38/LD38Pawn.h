@@ -125,6 +125,9 @@ public:
 	UPROPERTY(Category = Place, EditAnywhere)
 	float ThrustPower;
 
+	UPROPERTY(Category = Place, EditAnywhere)
+	int32 CarId;
+
 	UPROPERTY()
 	float Jumping;
 

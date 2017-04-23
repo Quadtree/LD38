@@ -14,6 +14,10 @@
 #include "Engine.h"
 #include "LD38GameMode.h"
 #include "Checkpoint.h"
+#include "HttpModule.h"
+#include "IHttpRequest.h"
+#include "IHttpResponse.h"
+#include "GenericPlatform/GenericPlatformHttp.h"
 
 // Needed for VR Headset
 #if HMD_MODULE_INCLUDED
@@ -248,7 +252,7 @@ void ALD38Pawn::Tick(float Delta)
 
 	if (auto gameMode = Cast<ALD38GameMode>(GetWorld()->GetAuthGameMode()))
 	{
-		if (LapsCompleted >= gameMode->Laps)
+		if (LapsCompleted >= gameMode->Laps && !RaceOver)
 		{
 			RaceOver = true;
 
@@ -260,6 +264,17 @@ void ALD38Pawn::Tick(float Delta)
 
 					FinalPlace = FMath::Max(i->FinalPlace + 1, FinalPlace);
 				}
+			}
+
+			if (Cast<APlayerController>(GetController()))
+			{
+				auto req = FHttpModule::Get().CreateRequest();
+
+				int32 duraInMilis = RaceDuration * 1000;
+
+				req->SetVerb("GET");
+				req->SetURL("http://sigma/dyn/lighttpd/ld/ld38/hst.php?insert=1&map=" + FGenericPlatformHttp::UrlEncode(UGameplayStatics::GetCurrentLevelName(GetWorld())) + "&car=" + FString::FromInt(CarId) + "&time1=" + FString::FromInt(duraInMilis));
+				req->ProcessRequest();
 			}
 		}
 	}
