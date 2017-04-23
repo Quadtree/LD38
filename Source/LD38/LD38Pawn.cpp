@@ -278,6 +278,19 @@ void ALD38Pawn::Tick(float Delta)
 			}
 		}
 	}
+
+	for (auto a : GetComponentsByClass(USpringArmComponent::StaticClass()))
+	{
+		auto sac = Cast<USpringArmComponent>(a);
+
+		if (sac)
+		{
+			if (sac->TargetArmLength > 2000)
+			{
+				sac->SetWorldRotation(this->GetActorLocation().Rotation() + FRotator(180,0,0));
+			}
+		}
+	}
 }
 
 void ALD38Pawn::BeginPlay()
