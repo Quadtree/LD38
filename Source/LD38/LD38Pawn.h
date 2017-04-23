@@ -107,6 +107,7 @@ public:
 	static const FName LookUpBinding;
 	static const FName LookRightBinding;
 
+	UPROPERTY(Category = Race, BlueprintReadOnly)
 	bool RaceOver;
 
 	UPROPERTY(Category = Place, BlueprintReadOnly, VisibleAnywhere)
