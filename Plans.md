@@ -24,6 +24,12 @@ Turn Dot Product Notes
 POSITIVE means turn RIGHT
 NEGATIVE means turn LEFT
 
+Music Track Comments
+====================
+song_20170423_193135_444.mid - Good but short
+song_20170423_193522_809.mid - 3411299522 - Decent
+song_20170423_194251_246.mid - 1503114466 - The good one
+
 Task List
 =========
 * ~~Waypoints~~
@@ -45,7 +51,7 @@ Task List
 * ~~High score system~~
 * ~~Add in suns~~
 * ~~Stuck for AIs when they fall off ledges~~
-* Sound
-* Give AI the ability to drive other cars
+* ~~Sound~~
+* ~~Give AI the ability to drive other cars~~
 * Music
 

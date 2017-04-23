@@ -19,6 +19,8 @@ ALD38GameMode::ALD38GameMode()
 
 void ALD38GameMode::BeginPlay()
 {
+	Super::BeginPlay();
+
 	AActor *start = nullptr;
 
 	for (TActorIterator<APlayerStart> itr(GetWorld()); itr; ++itr)
