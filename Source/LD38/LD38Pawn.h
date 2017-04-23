@@ -139,6 +139,9 @@ public:
 	UPROPERTY()
 	float Throttle;
 
+	UPROPERTY()
+	float Turn;
+
 	UPROPERTY(Category = HighScores, BlueprintReadOnly)
 	TArray<FString> CarNames;
 

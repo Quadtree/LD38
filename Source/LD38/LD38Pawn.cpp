@@ -156,6 +156,7 @@ void ALD38Pawn::MoveForward(float Val)
 void ALD38Pawn::MoveRight(float Val)
 {
 	GetVehicleMovementComponent()->SetSteeringInput(Val);
+	Turn = Val;
 }
 
 void ALD38Pawn::OnHandbrakePressed()
@@ -190,7 +191,7 @@ void ALD38Pawn::ResetToLastCheckpoint()
 	if (targetCheckpoint)
 	{
 		SetActorLocation(targetCheckpoint->GetActorLocation() + targetCheckpoint->GetActorLocation().GetSafeNormal() * 300, false, nullptr, ETeleportType::TeleportPhysics);
-		SetActorRotation(targetCheckpoint->GetActorLocation().Rotation());
+		SetActorRotation(targetCheckpoint->GetActorLocation().Rotation(), ETeleportType::TeleportPhysics);
 	}
 }
 
@@ -375,6 +376,11 @@ void ALD38Pawn::Tick(float Delta)
 	if (MotorSoundComp)
 	{
 		MotorSoundComp->SetPitchMultiplier(GetVehicleMovementComponent()->GetEngineRotationSpeed() / 5600 * 1.5f);
+	}
+
+	if (Throttle * ThrustPower > 0.01f)
+	{
+		GetMesh()->AddAngularImpulse(GetActorRotation().RotateVector(FVector(0, 0, ThrustPower * Turn * Delta * 0.01f)), NAME_None, true);
 	}
 }
 
