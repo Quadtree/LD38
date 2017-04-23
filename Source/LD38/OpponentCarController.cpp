@@ -15,6 +15,13 @@ void AOpponentCarController::Tick(float Delta)
 
 	if (pawn)
 	{
+		float altitude = pawn->GetActorLocation().Size();
+
+		if (FMath::Abs(altitude - CorrectAltitude) > 3000)
+		{
+			pawn->ResetToLastCheckpoint();
+		}
+
 		float forwardSpeed = pawn->GetActorRotation().GetInverse().RotateVector(Cast<UPrimitiveComponent>(pawn->GetRootComponent())->GetPhysicsLinearVelocity()).X;
 
 		/*if (auto pc = Cast<UPrimitiveComponent>(pawn->GetRootComponent()))
@@ -194,4 +201,9 @@ void AOpponentCarController::Tick(float Delta)
 			}
 		}
 	}
+}
+
+void AOpponentCarController::BeginPlay()
+{
+	CorrectAltitude = GetPawn()->GetActorLocation().Size();
 }

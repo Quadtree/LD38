@@ -18,7 +18,11 @@ class LD38_API AOpponentCarController : public AAIController
 	UPROPERTY()
 	class AActor* NextWaypoint;
 
+	virtual void BeginPlay() override;
+
 	float StuckTime;
 
 	float ReverseTime;
+
+	float CorrectAltitude;
 };
