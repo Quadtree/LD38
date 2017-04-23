@@ -122,6 +122,8 @@ ALD38Pawn::ALD38Pawn()
 	GearDisplayColor = FColor(255, 255, 255, 255);
 
 	bInReverseGear = false;
+
+	GetCamera()->PostProcessSettings.AutoExposureMaxBrightness = 0.5f;
 }
 
 void ALD38Pawn::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent)
@@ -191,7 +193,7 @@ void ALD38Pawn::ResetToLastCheckpoint()
 	if (targetCheckpoint)
 	{
 		SetActorLocation(targetCheckpoint->GetActorLocation() + targetCheckpoint->GetActorLocation().GetSafeNormal() * 300, false, nullptr, ETeleportType::TeleportPhysics);
-		SetActorRotation(targetCheckpoint->GetActorLocation().Rotation(), ETeleportType::TeleportPhysics);
+		SetActorRotation(targetCheckpoint->GetActorLocation().Rotation() + FRotator(-90,0,0), ETeleportType::TeleportPhysics);
 	}
 }
 
