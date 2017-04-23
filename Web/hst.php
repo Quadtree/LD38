@@ -24,7 +24,7 @@ else
 
 $carMapping = [
     'Catfish',
-    'Rocket Sled',
+    'Rocket Sedan',
     'Jetcrane',
 ];
 
