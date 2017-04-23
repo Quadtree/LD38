@@ -348,7 +348,8 @@ void ALD38Pawn::Tick(float Delta)
 
 			if (psc)
 			{
-				psc->bSuppressSpawning = !showThrusters;
+				//psc->bSuppressSpawning = !showThrusters;
+				psc->SetActive(showThrusters);
 			}
 		}
 	}
