@@ -17,5 +17,6 @@ public:
 	UPROPERTY(EditAnywhere, Category = CarTypes)
 	TArray<TSubclassOf<class ALD38Pawn>> CarTypes;
 	
-	
+	UPROPERTY(EditAnywhere, Category = CarTypes, BlueprintReadWrite)
+	TSubclassOf<class ALD38Pawn> SelectedCarType;
 };
