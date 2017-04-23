@@ -2,6 +2,9 @@ Possible Names
 ==============
 * World Wide [Racer?]
 * Equatorial Race
+* World Wide Circuit
+* Pole to Pole
+* 
 
 Car Types
 =========

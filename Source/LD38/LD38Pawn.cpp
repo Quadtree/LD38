@@ -214,7 +214,7 @@ void ALD38Pawn::OnHighScoreResponse(FHttpRequestPtr req, FHttpResponsePtr resp, 
 
 void ALD38Pawn::EnableIncarView(const bool bState, const bool bForce)
 {
-	if ((bState != bInCarCameraActive) || ( bForce == true ))
+	/*if ((bState != bInCarCameraActive) || ( bForce == true ))
 	{
 		bInCarCameraActive = bState;
 		
@@ -232,7 +232,7 @@ void ALD38Pawn::EnableIncarView(const bool bState, const bool bForce)
 		
 		InCarSpeed->SetVisibility(bInCarCameraActive);
 		InCarGear->SetVisibility(bInCarCameraActive);
-	}
+	}*/
 }
 
 
