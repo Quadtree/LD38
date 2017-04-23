@@ -183,8 +183,15 @@ void AOpponentCarController::Tick(float Delta)
 
 		if (StuckTime > 4)
 		{
-			StuckTime = 0;
-			ReverseTime = 8;
+			if (FMath::RandRange(0, 1) != 0)
+			{
+				StuckTime = 0;
+				ReverseTime = 8;
+			}
+			else
+			{
+				pawn->ResetToLastCheckpoint();
+			}
 		}
 	}
 }
