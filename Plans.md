@@ -56,5 +56,5 @@ Task List
 * ~~Music~~
 * ~~Linear velocity to zero on reset~~
 * ~~Increase minimap resolution~~
-* Fix checkpoint indicator offset
+* ~~Fix checkpoint indicator offset~~
 * Fix balance issue with car #3
