@@ -78,6 +78,9 @@ public:
 	UPROPERTY(EditAnywhere, Category = Checkpoint, BlueprintReadOnly)
 	int32 LapsCompleted;
 
+	UFUNCTION()
+	void OnHitHandler(AActor* SelfActor, AActor* OtherActor, FVector NormalImpulse, const FHitResult& Hit);
+
 	// Begin Actor interface
 	virtual void Tick(float Delta) override;
 protected:
@@ -150,8 +153,17 @@ public:
 	UPROPERTY(EditAnywhere, Category = Sound)
 	class USoundBase* MotorSound;
 
+	UPROPERTY(EditAnywhere, Category = Sound)
+	class USoundBase* HitSound;
+
+	UPROPERTY(EditAnywhere, Category = Sound)
+	class USoundBase* RocketSound;
+
 	UPROPERTY()
 	class UAudioComponent* MotorSoundComp;
+
+	UPROPERTY()
+	class UAudioComponent* ThrusterSoundComp;
 
 private:
 	/** 

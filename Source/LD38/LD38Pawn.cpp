@@ -236,6 +236,16 @@ void ALD38Pawn::EnableIncarView(const bool bState, const bool bForce)
 }
 
 
+void ALD38Pawn::OnHitHandler(AActor * SelfActor, AActor * OtherActor, FVector NormalImpulse, const FHitResult & Hit)
+{
+	if (Cast<ALD38Pawn>(OtherActor))
+	{
+		//UE_LOG(LogTemp, Display, TEXT("%s HIT %s (%s)"), *GetName(), *OtherActor->GetName(), *FString::SanitizeFloat(NormalImpulse.Size()));
+
+		UGameplayStatics::PlaySoundAtLocation(GetWorld(), HitSound, (GetActorLocation() + OtherActor->GetActorLocation()) / 2, NormalImpulse.Size() / 300000);
+	}
+}
+
 void ALD38Pawn::Tick(float Delta)
 {
 	Super::Tick(Delta);
@@ -343,6 +353,8 @@ void ALD38Pawn::Tick(float Delta)
 		}
 	}
 
+	if (ThrusterSoundComp) ThrusterSoundComp->SetVolumeMultiplier(showThrusters ? 1 : 0);
+
 	for (auto a : GetComponentsByClass(USpringArmComponent::StaticClass()))
 	{
 		auto sac = Cast<USpringArmComponent>(a);
@@ -372,7 +384,15 @@ void ALD38Pawn::BeginPlay()
 #endif // HMD_MODULE_INCLUDED
 	EnableIncarView(bEnableInCar,true);
 
-	MotorSoundComp = UGameplayStatics::PlaySoundAttached(MotorSound, RootComponent);
+	if (MotorSound) MotorSoundComp = UGameplayStatics::PlaySoundAttached(MotorSound, RootComponent);
+
+	if (RocketSound) {
+		ThrusterSoundComp = UGameplayStatics::PlaySoundAttached(RocketSound, RootComponent);
+		ThrusterSoundComp->SetVolumeMultiplier(0);
+	}
+
+	OnActorHit.AddDynamic(this, &ALD38Pawn::OnHitHandler);
+	//GetMesh()->OnComponentHit.AddDynamic(this, &ALD38Pawn::OnHitHandler);
 }
 
 void ALD38Pawn::OnResetVR()
