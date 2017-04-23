@@ -248,6 +248,14 @@ void ALD38Pawn::Tick(float Delta)
 	{
 		RaceDuration += Delta;
 	}
+
+	float velocity = 0;
+
+	if (auto pc = Cast<UPrimitiveComponent>(RootComponent)) velocity = pc->GetPhysicsLinearVelocity().Size();
+
+	FVector downForce = FVector(0, 0, -1) * velocity * SpoilerPower;
+
+	GetMesh()->AddForce(downForce, NAME_None, true);
 }
 
 void ALD38Pawn::BeginPlay()
