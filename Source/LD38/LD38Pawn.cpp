@@ -355,6 +355,11 @@ void ALD38Pawn::Tick(float Delta)
 			}
 		}
 	}
+
+	if (MotorSoundComp)
+	{
+		MotorSoundComp->SetPitchMultiplier(GetVehicleMovementComponent()->GetEngineRotationSpeed() / 5600 * 1.5f);
+	}
 }
 
 void ALD38Pawn::BeginPlay()
@@ -366,6 +371,8 @@ void ALD38Pawn::BeginPlay()
 	bEnableInCar = UHeadMountedDisplayFunctionLibrary::IsHeadMountedDisplayEnabled();
 #endif // HMD_MODULE_INCLUDED
 	EnableIncarView(bEnableInCar,true);
+
+	MotorSoundComp = UGameplayStatics::PlaySoundAttached(MotorSound, RootComponent);
 }
 
 void ALD38Pawn::OnResetVR()

@@ -147,6 +147,12 @@ public:
 
 	void OnHighScoreResponse(FHttpRequestPtr req, FHttpResponsePtr resp, bool success);
 
+	UPROPERTY(EditAnywhere, Category = Sound)
+	class USoundBase* MotorSound;
+
+	UPROPERTY()
+	class UAudioComponent* MotorSoundComp;
+
 private:
 	/** 
 	 * Activate In-Car camera. Enable camera and sets visibility of incar hud display

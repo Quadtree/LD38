@@ -15,6 +15,8 @@ void AOpponentCarController::Tick(float Delta)
 
 	if (pawn)
 	{
+		if (CorrectAltitude < 1) CorrectAltitude = GetPawn()->GetActorLocation().Size();
+
 		float altitude = pawn->GetActorLocation().Size();
 
 		if (FMath::Abs(altitude - CorrectAltitude) > 3000)
@@ -205,5 +207,5 @@ void AOpponentCarController::Tick(float Delta)
 
 void AOpponentCarController::BeginPlay()
 {
-	CorrectAltitude = GetPawn()->GetActorLocation().Size();
+	Super::BeginPlay();
 }
