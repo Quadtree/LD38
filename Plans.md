@@ -38,8 +38,8 @@ Task List
 * ~~Final graphics for planets~~
 * ~~Improve top-down view~~
 * ~~Main menu~~
-* Reset on stuck or death
-* High score system
+* ~~Reset on stuck or death~~
+* ~~High score system~~
 * Sound
 * Music
 
