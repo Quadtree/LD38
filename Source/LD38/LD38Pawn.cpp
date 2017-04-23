@@ -13,6 +13,7 @@
 #include "Engine/SkeletalMesh.h"
 #include "Engine.h"
 #include "LD38GameMode.h"
+#include "Checkpoint.h"
 
 // Needed for VR Headset
 #if HMD_MODULE_INCLUDED
@@ -134,6 +135,8 @@ void ALD38Pawn::SetupPlayerInputComponent(class UInputComponent* PlayerInputComp
 	PlayerInputComponent->BindAction("Handbrake", IE_Released, this, &ALD38Pawn::OnHandbrakeReleased);
 	PlayerInputComponent->BindAction("SwitchCamera", IE_Pressed, this, &ALD38Pawn::OnToggleCamera);
 
+	PlayerInputComponent->BindAction("Reset", IE_Pressed, this, &ALD38Pawn::ResetToLastCheckpoint);
+
 	PlayerInputComponent->BindAxis("Jump", this, &ALD38Pawn::OnJump);
 
 	PlayerInputComponent->BindAction("ResetVR", IE_Pressed, this, &ALD38Pawn::OnResetVR); 
@@ -163,6 +166,25 @@ void ALD38Pawn::OnHandbrakeReleased()
 void ALD38Pawn::OnToggleCamera()
 {
 	EnableIncarView(!bInCarCameraActive);
+}
+
+void ALD38Pawn::ResetToLastCheckpoint()
+{
+	AActor* targetCheckpoint = nullptr;
+
+	for (TActorIterator<ACheckpoint> i(GetWorld()); i; ++i)
+	{
+		if (i->CheckpointNumber != NextCheckpoint)
+		{
+			targetCheckpoint = *i;
+		}
+	}
+
+	if (targetCheckpoint)
+	{
+		SetActorLocation(targetCheckpoint->GetActorLocation() + targetCheckpoint->GetActorLocation().GetSafeNormal() * 300, false, nullptr, ETeleportType::TeleportPhysics);
+		SetActorRotation(targetCheckpoint->GetActorLocation().Rotation());
+	}
 }
 
 void ALD38Pawn::EnableIncarView(const bool bState, const bool bForce)

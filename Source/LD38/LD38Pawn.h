@@ -131,6 +131,9 @@ public:
 	UPROPERTY()
 	float Throttle;
 
+	UFUNCTION(BlueprintCallable, Category = Reset)
+	void ResetToLastCheckpoint();
+
 private:
 	/** 
 	 * Activate In-Car camera. Enable camera and sets visibility of incar hud display

@@ -37,7 +37,7 @@ Task List
 * ~~Extemely small planet~~
 * ~~Final graphics for planets~~
 * ~~Improve top-down view~~
-* Main menu
+* ~~Main menu~~
 * Reset on stuck or death
 * High score system
 * Sound
