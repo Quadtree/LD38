@@ -9,6 +9,8 @@
 #include "Components/PrimitiveComponent.h"
 #include "DrawDebugHelpers.h"
 
+#define AI_DEBUG_DRAW 0
+
 void AOpponentCarController::Tick(float Delta)
 {
 	auto pawn = Cast<ALD38Pawn>(this->GetPawn());
@@ -67,8 +69,10 @@ void AOpponentCarController::Tick(float Delta)
 		
 		if (NextWaypoint)
 		{
+#if AI_DEBUG_DRAW
 			DrawDebugLine(GetWorld(), pawn->GetActorLocation() + FVector(0,0,200), NextWaypoint->GetActorLocation() + FVector(0, 0, 200), FColor::Red, false, Delta * 3, 0, 3);
 			DrawDebugSphere(GetWorld(), NextWaypoint->GetActorLocation(), 100, 3, FColor::Red, false, Delta * 3, 0, 3);
+#endif
 
 			FRotator frameRotator = (pawn->GetActorLocation().Rotation() + FRotator(90, 0, 0)).GetInverse();
 
@@ -110,9 +114,11 @@ void AOpponentCarController::Tick(float Delta)
 				pawn->MoveForward(-1);
 			}
 
+#if AI_DEBUG_DRAW
 			DrawDebugString(pawn->GetWorld(), pawn->GetActorLocation(), FString::SanitizeFloat(angleToDest), nullptr, FColor::Red, Delta, true);
 			DrawDebugString(pawn->GetWorld(), pawn->GetActorLocation() + FVector(0,0,200), FString::SanitizeFloat(StuckTime), nullptr, FColor::Red, Delta, true);
 			DrawDebugString(pawn->GetWorld(), pawn->GetActorLocation() + FVector(0, 0, 400), FString::SanitizeFloat(topSpeed), nullptr, FColor::Red, Delta, true);
+#endif
 
 			//UE_LOG(LogTemp, Display, TEXT("NAV %s %s %s"), *frameRotator.ToCompactString(), *myLocation.ToCompactString(), *destLocation.ToCompactString());
 
