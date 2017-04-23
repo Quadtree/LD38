@@ -411,6 +411,9 @@ void ALD38Pawn::BeginPlay()
 
 	OnActorHit.AddDynamic(this, &ALD38Pawn::OnHitHandler);
 	//GetMesh()->OnComponentHit.AddDynamic(this, &ALD38Pawn::OnHitHandler);
+
+	InCarSpeed->SetVisibility(false);
+	InCarGear->SetVisibility(false);
 }
 
 void ALD38Pawn::OnResetVR()
