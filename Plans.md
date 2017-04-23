@@ -54,7 +54,7 @@ Task List
 * ~~Sound~~
 * ~~Give AI the ability to drive other cars~~
 * ~~Music~~
-* Linear velocity to zero on reset
-* Increase minimap resolution
+* ~~Linear velocity to zero on reset~~
+* ~~Increase minimap resolution~~
 * Fix checkpoint indicator offset
 * Fix balance issue with car #3

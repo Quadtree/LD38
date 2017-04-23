@@ -194,6 +194,12 @@ void ALD38Pawn::ResetToLastCheckpoint()
 	{
 		SetActorLocation(targetCheckpoint->GetActorLocation() + targetCheckpoint->GetActorLocation().GetSafeNormal() * 300, false, nullptr, ETeleportType::TeleportPhysics);
 		SetActorRotation(targetCheckpoint->GetActorLocation().Rotation() + FRotator(-90,0,0), ETeleportType::TeleportPhysics);
+
+		if (auto p = Cast<UPrimitiveComponent>(RootComponent))
+		{
+			p->SetPhysicsAngularVelocity(FVector(0, 0, 0));
+			p->SetPhysicsLinearVelocity(FVector(0, 0, 0));
+		}
 	}
 }
 
