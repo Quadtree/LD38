@@ -5,6 +5,23 @@ Possible Names
 * World Wide Circuit
 * Pole to Pole
 * Race the World
+* Race to the Poles
+* Circle the Globe
+* Globetrack
+* Ground Orbit
+* Planetary Challenge
+* Planetary Circuit
+* **Low Orbit**
+* Polar Circuit
+* Polar Track
+* Planetary Speedway
+* Celestial Speedway
+* Solar Speedway
+* Speedway Planet
+* Latitude Circuit
+* Great Circuit
+* Extremely Low Orbit
+* Polar Speedway
 
 Car Types
 =========
@@ -57,4 +74,4 @@ Task List
 * ~~Linear velocity to zero on reset~~
 * ~~Increase minimap resolution~~
 * ~~Fix checkpoint indicator offset~~
-* Fix balance issue with car #3
+* ~~Fix balance issue with car #3~~

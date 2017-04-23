@@ -209,6 +209,8 @@ void AOpponentCarController::Tick(float Delta)
 			else
 			{
 				pawn->ResetToLastCheckpoint();
+				StuckTime = 0;
+				ReverseTime = 0;
 			}
 		}
 	}
