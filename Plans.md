@@ -34,8 +34,11 @@ Task List
 * ~~Fix error generation bug~~
 * Create forest planet
 * Create glass planet
+* Extemely small planet
 * Final graphics for planets
+* Improve top-down view
 * Main menu
+* High score system
 * Sound
 * Music
 
