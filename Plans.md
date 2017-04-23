@@ -30,7 +30,8 @@ Task List
 * ~~Better AI~~
 * ~~Create car #1~~
 * ~~Create car #2~~
-* Create car #3
+* ~~Create car #3~~
+* ~~Fix error generation bug~~
 * Create forest planet
 * Create glass planet
 * Final graphics for planets
