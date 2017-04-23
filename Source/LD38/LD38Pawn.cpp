@@ -293,8 +293,11 @@ void ALD38Pawn::Tick(float Delta)
 
 				int32 duraInMilis = RaceDuration * 1000;
 
+				//FString baseUri = "http://sigma/dyn/lighttpd";
+				FString baseUri = "http://quadtree.info";
+
 				req->SetVerb("GET");
-				req->SetURL("http://sigma/dyn/lighttpd/ld/ld38/hst.php?insert=1&map=" + FGenericPlatformHttp::UrlEncode(UGameplayStatics::GetCurrentLevelName(GetWorld())) + "&car=" + FString::FromInt(CarId) + "&time1=" + FString::FromInt(duraInMilis));
+				req->SetURL(baseUri + "/ld/ld38/hst.php?insert=1&map=" + FGenericPlatformHttp::UrlEncode(UGameplayStatics::GetCurrentLevelName(GetWorld())) + "&car=" + FString::FromInt(CarId) + "&time1=" + FString::FromInt(duraInMilis));
 
 				req->OnProcessRequestComplete().BindUObject(this, &ALD38Pawn::OnHighScoreResponse);
 
