@@ -2,10 +2,10 @@
 I'll start by going over a few aspects of this particular compo (my 19th), and then cover what went well and what went wrong.
 
 ## The Theme
-I'll be honest: I voted against "A Small World", for the simple reason that that it is way too similar to the theme of LD #23, "Tiny Planet". I briefly considered making a sequel to my LD #23 [entry](http://quadtree.info/#/ld/), which I would have called "Space Imperator II". This just seemed to creatively bankrupt however, so I decided to find something else. I eventually settled on the idea of a racing game where the player raced around on a small planet, probably from pole to pole. Racing games are one genre I have never done in the LD, so it seemed nice to try something new.
+I'll be honest: I voted against "A Small World", for the simple reason that that it is way too similar to the theme of LD #23, "Tiny Planet". I briefly considered making a sequel to my LD #23 [entry](http://quadtree.info/#/ld/), which I would have called "Space Imperator II". This just seemed too creatively bankrupt however, so I decided to find something else. I eventually settled on the idea of a racing game where the player raced around on a small planet, probably from pole to pole. Racing games are one genre I have never done in the LD, so it seemed nice to try something new.
 
 ## Feasability
-Unreal Engine 4 uses PhysX which I guessed isn't designed to allow vehicles to drive on the bottom of things. My initial tests confirmed this, but eventually I was able to find an odd hack: If you leave gravity on, but add an extra force to all objects which negates it, vehicles work. However, I still suspect that the cars have better handling on the "top" of the planet rather than the "bottom". Either way, it isn't all that noticable (hopefully).
+Unreal Engine 4 uses PhysX which I guessed isn't designed to allow vehicles to drive on the bottom of things. My initial tests confirmed this: disabling gravity and using a radial attractor to simulate gravity prevents vehicles from getting any traction. Eventually I was able to find an odd hack: If you leave gravity on, but add an extra force to all objects which negates it, vehicles work. However, I still suspect that the cars have better handling on the "top" of the planet rather than the "bottom". Either way, it isn't all that noticable (hopefully).
 
 # What Went Well
 ## The Idea
@@ -21,6 +21,8 @@ I set up the top-view of the planet at the very start, as a simple render-to-tex
 This is usually a weak spot for me, but I'm fairly happy with how it turned out. I recorded my electric range hood and used that as the engine noise, which worked well with the simulated RPM in the vehicle system. For the collisions, I used a slowed down version of me hitting butter knives together. The rocket engine sound is made in Bfxr.
 
 As for the music, I made about 10 tracks in Abundant Music with a tempo of 300-350 and a synth as the lead. After I'd made about 10, I got one I really liked, although it's only about 88 seconds long.
+
+## Opponent AI
 
 # What Didn't Go Well
 ## UE4 Vehicles
