@@ -205,6 +205,8 @@ void ALD38Pawn::ResetToLastCheckpoint()
 
 void ALD38Pawn::OnHighScoreResponse(FHttpRequestPtr req, FHttpResponsePtr resp, bool success)
 {
+	if (!success) return;
+
 	FString content = resp->GetContentAsString();
 
 	TArray<FString> lines;
