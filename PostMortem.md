@@ -1,4 +1,4 @@
-# Low Orbit Post Mortem
+# [Low Orbit](https://ldjam.com/events/ludum-dare/38/low-orbit) Post Mortem
 I'll start by going over a few aspects of this particular compo (my 19th), and then cover what went well and what went wrong.
 
 ## The Theme
@@ -20,9 +20,12 @@ I set up the top-view of the planet at the very start, as a simple render-to-tex
 ## Sound and Music
 This is usually a weak spot for me, but I'm fairly happy with how it turned out. I recorded my electric range hood and used that as the engine noise, which worked well with the simulated RPM in the vehicle system. For the collisions, I used a slowed down version of me hitting butter knives together. The rocket engine sound is made in Bfxr.
 
-As for the music, I made about 10 tracks in Abundant Music with a tempo of 300-350 and a synth as the lead. After I'd made about 10, I got one I really liked, although it's only about 88 seconds long.
+As for the music, I made about 10 tracks in [Abundant Music](http://www.abundant-music.com/) with a tempo of 300-350 and a synth as the lead. After I'd made about 10, I got one I really liked, although it's only about 88 seconds long.
 
 ## Opponent AI
+My past experiences with writing vehicle AI were not very encouraging. The only vehicle AI I've ever written is the fairly stupid AI that drives the other vehicles in my LD #32 entry. Even then, it only had to worry about what is essentially a 2D plane with no obstacles. I got fairly lucky here in that my first idea worked out pretty well. The AI chooses the next destination, either as the next checkpoint, or from a numbered set of waypoints that proceeds each checkpoint. It then projects everything onto a plane perpendicular to a line drawn from the center of the planet. It then takes the dot product of the vector to the destination and another vector that faces off to the left, and uses this to determine steering. As the AI gets more on course, the dot product decreases and the AI increases its maximum speed. It also decreases maximum speed as it approaches the destination.
+
+The result, while not particularly smart, can actually beat me on occasion, which I think is good enough.
 
 # What Didn't Go Well
 ## UE4 Vehicles
@@ -35,4 +38,6 @@ The idea crystallized right off the bat, but the name didn't. Here are the names
 Final testing on my laptop revealed that the game runs poorly on low-spec machines even though it doesn't look all that good. I think the problem is the subdivision surfaces I used on the cars, which add a ton of largely redundant polygons.
 
 ## HTML5 Export
-Yet again the HTML5 export failed to work flawlessly. It looks like the problem is that UE4.15 won't compile the PhysXVehicle plugin into a HTML5 build, and I'm not completely sure why. UE4.16 doesn't seem to have this problem, but I haven't had time to try a source build yet. The strangest part here is that vehicle physics used to work in HTML5 builds, as I used them in LD #32 which had an HTML5 version.
+Yet again the HTML5 export failed to work flawlessly. It looks like the problem is that UE4.15 won't compile the PhysXVehicle plugin into a HTML5 build, and I'm not completely sure why. UE4.16 doesn't seem to have this problem, which required me to rebuild the engine from source. There were a couple other issues around lighting and weird model distortion, but I do have a [HTML5](https://quadtree.info/ld/ld38/HTML5/LD38-HTML5-Shipping.html) build up now, with only one bug that doesn't exist in the Win32 version: for some reason, the car's wheels are rotationally 1 frame behind the body. This is only noticable when the car is spinning at high speed, so hopefully it'll only come up rarely.
+
+All in all, it was an enjoyable experience. See you all in LD #39!
